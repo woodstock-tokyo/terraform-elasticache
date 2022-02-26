@@ -85,11 +85,9 @@ resource "aws_elasticache_replication_group" "cluster" {
   at_rest_encryption_enabled = var.at_rest_encryption_enabled
   transit_encryption_enabled = var.transit_encryption_enabled
   kms_key_id                 = var.kms_key_id
+  replicas_per_node_group    = var.replicas_per_node_group #Replicas per Shard
+  num_node_groups            = var.num_node_groups         #Number of Shards
   tags                       = module.labels.tags
-  cluster_mode {
-    replicas_per_node_group = var.replicas_per_node_group #Replicas per Shard
-    num_node_groups         = var.num_node_groups         #Number of Shards
-  }
   // auth_token                    = var.auth_token
 }
 
