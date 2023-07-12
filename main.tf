@@ -47,7 +47,7 @@ resource "aws_elasticache_replication_group" "default" {
   snapshot_window            = var.snapshot_window
   snapshot_retention_limit   = var.snapshot_retention_limit
   apply_immediately          = var.apply_immediately
-  availability_zones         = slice(var.availability_zones, 0, var.number_cache_clusters)
+  preferred_cache_cluster_azs= slice(var.availability_zones, 0, var.number_cache_clusters)
   num_cache_clusters         = var.number_cache_clusters
   auto_minor_version_upgrade = var.auto_minor_version_upgrade
   maintenance_window         = var.maintenance_window
@@ -79,7 +79,7 @@ resource "aws_elasticache_replication_group" "cluster" {
   snapshot_window            = var.snapshot_window
   snapshot_retention_limit   = var.snapshot_retention_limit
   apply_immediately          = var.apply_immediately
-  availability_zones         = slice(var.availability_zones, 0, var.num_node_groups)
+  preferred_cache_cluster_azs= slice(var.availability_zones, 0, var.num_node_groups)
   auto_minor_version_upgrade = var.auto_minor_version_upgrade
   maintenance_window         = var.maintenance_window
   at_rest_encryption_enabled = var.at_rest_encryption_enabled
@@ -105,7 +105,7 @@ resource "aws_elasticache_cluster" "default" {
   node_type                    = var.node_type
   subnet_group_name            = join("", aws_elasticache_subnet_group.default.*.name)
   security_group_ids           = var.security_group_ids
-  security_group_names         = var.security_group_names
+  // security_group_names      = var.security_group_names
   snapshot_arns                = var.snapshot_arns
   snapshot_name                = var.snapshot_name
   notification_topic_arn       = var.notification_topic_arn
